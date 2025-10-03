@@ -1,10 +1,28 @@
 <?php
 session_start();
 
-$palabras = ["PROGRAMACION", "PHP", "AHORCADO", "JUEGO", "WEB"];
+const WORDS_FILEPATH = "./files/words.txt";
+
+class WordProvider {
+    public $filePath;
+
+    function __construct(string $filePath) {
+        $this->filePath = $filePath;
+    }
+
+    function getRandomWord(): string|false {
+        if (!$words = file($this->filePath)) {
+            return false;
+        }
+        $randomWord = $words[array_rand($words)];
+        $cleanedWord = iconv('utf-8', 'ASCII//TRANSLIT', trim($randomWord));
+        return strtoupper($cleanedWord);
+    }
+}
 
 if (!isset($_SESSION['palabra'])) {
-    $_SESSION['palabra'] = $palabras[array_rand($palabras)];
+    $wordProvider = new WordProvider(WORDS_FILEPATH);
+    $_SESSION['palabra'] = $wordProvider->getRandomWord();
     $_SESSION['intentos'] = 6;
     $_SESSION['letras_usadas'] = [];
 }
