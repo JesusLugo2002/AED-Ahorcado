@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 session_start();
 
 const WORDS_FILEPATH = "./files/words.txt";
@@ -17,6 +17,31 @@ class WordProvider {
         $randomWord = $words[array_rand($words)];
         $cleanedWord = iconv('utf-8', 'ASCII//TRANSLIT', trim($randomWord));
         return strtoupper($cleanedWord);
+    }
+}
+
+class Storage {
+    private $key;
+
+    function __construct(String $key = "ahorcado") {
+        $this->key = $key;
+        session_start();
+    }
+
+    function get(string $name, mixed $default = ""): string {
+        if (array_key_exists($name, $_SESSION)) {
+            return $_SESSION[$name];
+        }
+        return $default;
+    }
+
+    function set(string $name, mixed $value): void {
+        $_SESSION[$name] = $value;
+    }
+
+    function reset(): void {
+        session_destroy();
+        header("Location: index.php");
     }
 }
 
