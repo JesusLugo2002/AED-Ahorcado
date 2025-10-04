@@ -1,16 +1,15 @@
 <?php declare(strict_types=1);
-session_start();
 
 const WORDS_FILEPATH = "./files/words.txt";
 
 class WordProvider {
     public $filePath;
 
-    function __construct(string $filePath) {
+    public function __construct(string $filePath) {
         $this->filePath = $filePath;
     }
 
-    function getRandomWord(): string|false {
+    public function getRandomWord(): string|false {
         if (!$words = file($this->filePath)) {
             return false;
         }
@@ -23,56 +22,60 @@ class WordProvider {
 class Storage {
     private $key;
 
-    function __construct(String $key = "ahorcado") {
+    public function __construct(String $key = "ahorcado") {
         $this->key = $key;
         session_start();
     }
 
-    function get(string $name, mixed $default = ""): string {
+    public function get(string $name, mixed $default = ""): mixed {
         if (array_key_exists($name, $_SESSION)) {
             return $_SESSION[$name];
         }
         return $default;
     }
 
-    function set(string $name, mixed $value): void {
+    public function set(string $name, mixed $value): void {
         $_SESSION[$name] = $value;
     }
 
-    function reset(): void {
+    public function reset(): void {
         session_destroy();
         header("Location: index.php");
     }
 }
 
-if (!isset($_SESSION['palabra'])) {
+$storage = new Storage();
+if (!$storage->get("word")) {
     $wordProvider = new WordProvider(WORDS_FILEPATH);
-    $_SESSION['palabra'] = $wordProvider->getRandomWord();
-    $_SESSION['intentos'] = 6;
-    $_SESSION['letras_usadas'] = [];
+    $storage->set("word", $wordProvider->getRandomWord());
+    $storage->set("tries", 6);
+    $storage->set("used_letters", []);
 }
 
-if (isset($_POST['letra'])) {
-    $letra = strtoupper($_POST['letra']);
-    if (!in_array($letra, $_SESSION['letras_usadas'])) {
-        $_SESSION['letras_usadas'][] = $letra;
-        if (strpos($_SESSION['palabra'], $letra) === false) {
-            $_SESSION['intentos']--;
+if (isset($_POST['letter'])) {
+    $letter = strtoupper($_POST['letter']);
+    $usedLetters = $storage->get("used_letters");
+    if (!in_array($letter, $usedLetters)) {
+        $usedLetters[] = $letter;
+        $storage->set("used_letters", $usedLetters);
+        if (strpos($storage->get("word"), $letter) === false) {
+            $storage->set("tries", $storage->get("tries") - 1);
         }
     }
 }
 
-$mostrar = "";
-foreach (str_split($_SESSION['palabra']) as $letra) {
-    $mostrar .= in_array($letra, $_SESSION['letras_usadas']) ? $letra : "_";
+$output = "";
+foreach (str_split($storage->get("word")) as $letter) {
+    $output .= in_array($letter, $storage->get("used_letters")) ? $letter : "_";
 }
 
-$mensaje = "";
-if ($mostrar === $_SESSION['palabra']) {
-    $mensaje = "Felicidades ¡Ganaste! La palabra era: " . $_SESSION['palabra'];
+$message = "";
+$word = $storage->get("word");
+if ($output === $word) {
+    $message = "Felicidades ¡Ganaste! La palabra era: $word"; 
 }
-if ($_SESSION['intentos'] <= 0) {
-    $mensaje = "Lo siento ¡Perdiste! La palabra era: " . $_SESSION['palabra'];
+if ($storage->get("tries") <= 0) {
+    $message = "Lo siento ¡Perdiste! La palabra era: $word";
 }
 
 function dibujoAhorcado($intentos) {
@@ -146,20 +149,20 @@ function dibujoAhorcado($intentos) {
 <body>
 <h1>Juego del Ahorcado</h1>
 
-<?php echo dibujoAhorcado($_SESSION['intentos']); ?>
+<?php echo dibujoAhorcado($storage->get("tries")); ?>
 
-<p>Palabra: <?php echo implode(" ", str_split($mostrar)); ?></p>
-<p>Intentos restantes: <?php echo $_SESSION['intentos']; ?></p>
-<p>Letras usadas: <?php echo implode(", ", $_SESSION['letras_usadas']); ?></p>
+<p>Palabra: <?php echo implode(" ", str_split($output)); ?></p>
+<p>Intentos restantes: <?php echo $storage->get("tries"); ?></p>
+<p>Letras usadas: <?php echo implode(", ", $storage->get("used_letters")); ?></p>
 
-<?php if ($mensaje == ""): ?>
+<?php if (!$message): ?>
     <form method="post">
         <label>Introduce una letra:</label>
-        <input type="text" name="letra" maxlength="1" required>
+        <input type="text" name="letter" maxlength="1" required>
         <button type="submit">Adivinar</button>
     </form>
 <?php else: ?>
-    <p><strong><?php echo $mensaje; ?></strong></p>
+    <p><strong><?php echo $message; ?></strong></p>
     <a href="reset.php">Jugar de nuevo</a>
 <?php endif; ?>
 
