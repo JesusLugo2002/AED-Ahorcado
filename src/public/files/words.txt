@@ -1,5 +1,3 @@
 Programacion
-Videojuegos
 PHP
 Python
-Creatividad

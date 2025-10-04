@@ -2,6 +2,71 @@
 
 const WORDS_FILEPATH = "./files/words.txt";
 
+class Game {
+    private $word;
+    public $maxAttempts;
+    private $attemptsLeft;
+    private $usedLetters;
+
+    public function __construct(string $word, int $maxAttempts = 6, ?array $state = null) {
+        $this->word = $word;
+        $this->maxAttempts = $maxAttempts;
+
+        if ($state) {
+            $this->maxAttempts = $state["max_attempts"];
+            $this->attemptsLeft = $state["attempts_left"];
+            $this->usedLetters = $state["used_letters"];
+        } else {
+            $this->maxAttempts = $maxAttempts;
+            $this->attemptsLeft = $this->maxAttempts;
+            $this->usedLetters = [];
+        }
+    }
+
+    public function guessLetter(string $letter): void {
+        $upperLetter = strtoupper($letter);
+        if (in_array($upperLetter, $this->getUsedLetters())) {
+            return;
+        }
+        $this->usedLetters[] = $upperLetter;
+        if (!str_contains($this->getWord(), strtoupper($upperLetter))) {
+            $this->attemptsLeft--;
+        }
+    }
+
+    public function getMaskedWord(): string {
+        $maskedWord = "";
+        foreach (str_split($this->getWord()) as $letter) {
+            $maskedWord .= in_array($letter, $this->usedLetters) ? $letter : "_";
+        }
+        return $maskedWord;
+    }
+
+    public function getAttemptsLeft(): int {
+        return $this->attemptsLeft;
+    }
+
+    public function getUsedLetters(): array {
+        return $this->usedLetters;
+    }
+
+    public function isWon(): bool {
+        return $this->getMaskedWord() == $this->getWord();
+    }
+
+    public function isLost(): bool {
+        return !$this->isWon() && !$this->attemptsLeft;
+    }
+
+    public function getWord(): string {
+        return $this->word;
+    }
+
+    public function toState(): array {
+        return ["word" => $this->getWord(), "max_attempts" => $this->maxAttempts, "attempts_left" => $this->getAttemptsLeft(), "used_letters" => $this->getUsedLetters()];
+    }
+}
+
 class WordProvider {
     public $filePath;
 
@@ -24,6 +89,7 @@ class Storage {
 
     public function __construct(String $key = "ahorcado") {
         $this->key = $key;
+        $_SESSION["key"] = $key;
         session_start();
     }
 
@@ -44,42 +110,9 @@ class Storage {
     }
 }
 
-$storage = new Storage();
-if (!$storage->get("word")) {
-    $wordProvider = new WordProvider(WORDS_FILEPATH);
-    $storage->set("word", $wordProvider->getRandomWord());
-    $storage->set("tries", 6);
-    $storage->set("used_letters", []);
-}
-
-if (isset($_POST['letter'])) {
-    $letter = strtoupper($_POST['letter']);
-    $usedLetters = $storage->get("used_letters");
-    if (!in_array($letter, $usedLetters)) {
-        $usedLetters[] = $letter;
-        $storage->set("used_letters", $usedLetters);
-        if (strpos($storage->get("word"), $letter) === false) {
-            $storage->set("tries", $storage->get("tries") - 1);
-        }
-    }
-}
-
-$output = "";
-foreach (str_split($storage->get("word")) as $letter) {
-    $output .= in_array($letter, $storage->get("used_letters")) ? $letter : "_";
-}
-
-$message = "";
-$word = $storage->get("word");
-if ($output === $word) {
-    $message = "Felicidades ¡Ganaste! La palabra era: $word"; 
-}
-if ($storage->get("tries") <= 0) {
-    $message = "Lo siento ¡Perdiste! La palabra era: $word";
-}
-
-function dibujoAhorcado($intentos) {
-    $estados = [
+class Renderer {
+    static public function ascii(int $attemptsLeft): string {
+        $status = [
         6 => " 
   +---+
   |   |
@@ -137,23 +170,57 @@ function dibujoAhorcado($intentos) {
       |
 ========= "
     ];
-    return "<pre>" . $estados[$intentos] . "</pre>";
+        return "<pre>" . $status[$attemptsLeft] . "</pre>";
+    }
 }
+
+$storage = new Storage();
+$wordProvider = new WordProvider(WORDS_FILEPATH);
+$state = $storage->get("state", null);
+$randomWord = $state["word"] ?? $wordProvider->getRandomWord();
+$game = new Game($randomWord, state: $state);
+
+if (isset($_POST['letter'])) {
+    $game->guessLetter($_POST['letter']);
+}
+
+$word = $game->getWord();
+$message = "";
+
+if ($game->isWon()) {
+    $message = "Felicidades ¡Ganaste! La palabra era: $word"; 
+} else if ($game->isLost()) {
+    $message = "Lo siento ¡Perdiste! La palabra era: $word";
+}
+
+$storage->set("state", $game->toState());
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Ahorcado en PHP</title>
 </head>
+<script>
+    window.onload = function() {
+        const input = document.querySelector('input[name="letter"]');
+        if (input) { 
+            input.focus();
+        } else {
+            const input = document.querySelector('a[href="reset.php"]');
+            if (input) input.focus();
+        }
+    };
+</script>
 <body>
 <h1>Juego del Ahorcado</h1>
 
-<?php echo dibujoAhorcado($storage->get("tries")); ?>
+<?php echo Renderer::ascii($game->getAttemptsLeft()); ?>
 
-<p>Palabra: <?php echo implode(" ", str_split($output)); ?></p>
-<p>Intentos restantes: <?php echo $storage->get("tries"); ?></p>
-<p>Letras usadas: <?php echo implode(", ", $storage->get("used_letters")); ?></p>
+<p>Palabra: <?php echo implode(" ", str_split($game->getMaskedWord())); ?></p>
+<p>Intentos restantes: <?php echo $game->getAttemptsLeft(); ?></p>
+<p>Letras usadas: <?php echo implode(", ", $game->getUsedLetters()); ?></p>
 
 <?php if (!$message): ?>
     <form method="post">
