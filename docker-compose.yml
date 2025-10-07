@@ -6,5 +6,5 @@ services:
     environment:
       TZ: "UTC"
     volumes:
-      - ./src:/var/www/html
+      - ./src:/var/www/html/public
       - ./php.ini:/usr/local/etc/php/conf.d/zz-custom.ini:ro
