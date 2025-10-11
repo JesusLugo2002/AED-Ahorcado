@@ -115,6 +115,83 @@
                 "U",
                 "Z"
             ]
+        },
+        "jesus-7": {
+            "id": "jesus-7",
+            "target_word": "DESARROLLO",
+            "max_attempts": 6,
+            "left_attempts": 0,
+            "used_letters": [
+                "A",
+                "V",
+                "C",
+                "Z",
+                "N",
+                "B",
+                "T"
+            ]
+        },
+        "susan-8": {
+            "id": "susan-8",
+            "target_word": "VIDEOJUEGOS",
+            "max_attempts": 6,
+            "left_attempts": 2,
+            "used_letters": [
+                "P",
+                "C",
+                "A",
+                "T",
+                "D",
+                "E",
+                "V",
+                "I",
+                "O",
+                "J",
+                "G",
+                "S",
+                "U"
+            ]
+        },
+        "susan-9": {
+            "id": "susan-9",
+            "target_word": "VIDEOJUEGOS",
+            "max_attempts": 6,
+            "left_attempts": 6,
+            "used_letters": []
+        },
+        "susan-10": {
+            "id": "susan-10",
+            "target_word": "TYPESCRIPT",
+            "max_attempts": 6,
+            "left_attempts": 0,
+            "used_letters": [
+                "O",
+                "I",
+                "P",
+                "C",
+                "V",
+                "N",
+                "Z",
+                "Q",
+                "X"
+            ]
+        },
+        "susan-11": {
+            "id": "susan-11",
+            "target_word": "CREATIVIDAD",
+            "max_attempts": 6,
+            "left_attempts": 5,
+            "used_letters": [
+                "A",
+                "C",
+                "R",
+                "Y",
+                "E",
+                "T",
+                "I",
+                "V",
+                "D"
+            ]
         }
     }
 }

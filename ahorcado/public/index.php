@@ -6,31 +6,34 @@ $viewsDirectory = $config['storage']['views_dir'];
 
 use App\Infrastructure\Persistence\JsonWordRepository as WordProvider;
 use App\Infrastructure\Persistence\JsonGameRepository as GameRepository;
+use App\Infrastructure\Persistence\SessionRepository as SessionRepository;
 use App\Domain\Entity\Game as Game;
 use App\Presentation\Controllers\Renderer as Renderer;
 
-session_start();
-
+$sessionRepository = new SessionRepository();
 $gameRepository = new GameRepository($config['storage']['games_file']);
 
 if (isset($_POST['start_game'])) {
-    $_SESSION['in_game'] = true;
+    $sessionRepository->set("in_game", true);
     $wordProvider = new WordProvider($config['storage']['words_file']);
     $word = $wordProvider->getRandomWord();
     $maxAttempts = $config['game']['max_attempts'];
     $game = new Game( $word, $maxAttempts);
-    $_SESSION['game_id'] = $gameRepository->save($game, $_POST['player_name']);
+    $gameId = $gameRepository->save($game, $_POST['player_name']);
+    $sessionRepository->set("game_id", $gameId);
     header("Location: index.php");
 } else if (isset($_POST['restart_game'])) {
     session_destroy();
     header("Location: index.php");
 }
 
-$inGame = isset($_SESSION['in_game']) && $_SESSION['in_game'];
-$isGameIdSaved = isset($_SESSION['game_id']);
+$sessionInGame = $sessionRepository->get("in_game");
+$sessionGameId = $sessionRepository->get("game_id");
+$isInGame = isset($sessionInGame) && $sessionInGame;
+$isGameIdSaved = isset($sessionGameId);
 
-if ($inGame && $isGameIdSaved) {
-    $game = $gameRepository->load($_SESSION['game_id']);
+if ($isInGame && $isGameIdSaved) {
+    $game = $gameRepository->load($sessionGameId);
     $alert = "";
     
     if (isset($_POST['letter'])) {
@@ -67,7 +70,7 @@ if ($inGame && $isGameIdSaved) {
 <body>
     <main class="container d-flex justify-content-center align-items-middle flex-column">
         <?php include "$viewsDirectory/title.html"?>
-        <?php if ($inGame): ?>
+        <?php if ($isInGame): ?>
             <?php echo Renderer::getState($leftAttempts) ?>
             <div class="row border-bottom pb-3 mb-3">
                 <div class="col text-center">
