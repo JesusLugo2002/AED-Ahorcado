@@ -1,4 +1,10 @@
 {
     "games": {
+        "jesus-0": {
+            "target_word": "VIDEOJUEGOS",
+            "max_attempts": 6,
+            "left_attempts": 6,
+            "used_letters": []
+        }
     }
 }

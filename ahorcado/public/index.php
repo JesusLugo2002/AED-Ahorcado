@@ -20,6 +20,7 @@ if (isset($_POST['start_game'])) {
     $gameId = $gameRepository->save($game, $_POST['player_name']);
     $game->setId($gameId);
     $_SESSION['game_id'] = $gameId;
+    header("Location: index.php");
 } else if (isset($_POST['restart_game'])) {
     session_destroy();
     header("Location: index.php");
