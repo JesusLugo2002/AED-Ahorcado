@@ -8,6 +8,7 @@ namespace App\Domain\Entity;
  * Entidad de dominio que representa una partida (nueva o previa) del juego.
  */
 final class Game {
+    private ?string $id;
     private string $targetWord;
     private int $maxAttempts;
     private int $leftAttempts;
@@ -26,7 +27,15 @@ final class Game {
     }
 
     public function __tostring(): string {
-        return "- Palabra a adivinar: $this->targetWord - Intentos: $this->leftAttempts/$this->maxAttempts - Enmascarada: " . $this->getMaskedWord() . " - Status: " . $this->getStatus();
+        return "Palabra a adivinar: $this->targetWord - Intentos: $this->leftAttempts/$this->maxAttempts - Enmascarada: " . $this->getMaskedWord() . " - Status: " . $this->getStatus();
+    }
+
+    public function getId(): string|null {
+        return $this->id ?? null;
+    }
+
+    public function setId(string $newId): void {
+        $this->id = $newId;
     }
     
     /**
