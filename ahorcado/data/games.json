@@ -192,6 +192,44 @@
                 "V",
                 "D"
             ]
+        },
+        "Susan-12": {
+            "id": "Susan-12",
+            "target_word": "PATRONES",
+            "max_attempts": 6,
+            "left_attempts": 4,
+            "used_letters": [
+                "A",
+                "C",
+                "Z",
+                "S"
+            ]
+        },
+        "jesus-13": {
+            "id": "jesus-13",
+            "target_word": "PATRONES",
+            "max_attempts": 6,
+            "left_attempts": 0,
+            "used_letters": [
+                "P",
+                "A",
+                "C",
+                "Z",
+                "V",
+                "B",
+                "Q",
+                "T",
+                "R",
+                "O",
+                "J"
+            ]
+        },
+        "susan-14": {
+            "id": "susan-14",
+            "target_word": "CREATIVIDAD",
+            "max_attempts": 6,
+            "left_attempts": 6,
+            "used_letters": []
         }
     }
 }

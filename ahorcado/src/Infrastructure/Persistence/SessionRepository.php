@@ -20,6 +20,10 @@ final class SessionRepository implements SessionRepositoryInterface {
     public function set(string $name, mixed $value): void {
         $_SESSION[$name] = $value;
     }
+
+    public function destroy(): void {
+        session_destroy();
+    }
 }
 
 ?>
