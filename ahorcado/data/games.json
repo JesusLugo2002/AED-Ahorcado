@@ -230,6 +230,27 @@
             "max_attempts": 6,
             "left_attempts": 6,
             "used_letters": []
+        },
+        "susan-15": {
+            "id": "susan-15",
+            "target_word": "DESARROLLO",
+            "max_attempts": 6,
+            "left_attempts": 4,
+            "used_letters": [
+                "A",
+                "P",
+                "C"
+            ]
+        },
+        "d-16": {
+            "id": "d-16",
+            "target_word": "PYTHON",
+            "max_attempts": 6,
+            "left_attempts": 4,
+            "used_letters": [
+                "A",
+                "E"
+            ]
         }
     }
 }
