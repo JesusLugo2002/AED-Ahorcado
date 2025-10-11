@@ -17,7 +17,7 @@ if (isset($_POST['start_game'])) {
     $word = $wordProvider->getRandomWord();
     $maxAttempts = $config['game']['max_attempts'];
     $game = new Game( $word, $maxAttempts);
-    $gameId = $gameRepository->save($game);
+    $gameId = $gameRepository->save($game, $_POST['player_name']);
     $game->setId($gameId);
     $_SESSION['game_id'] = $gameId;
 } else if (isset($_POST['restart_game'])) {
@@ -61,7 +61,7 @@ if ($inGame && $isGameIdSaved) {
         <?php else: ?>
             <form method="post" action=".">
                 <input type="hidden" name="start_game">
-                <input type="text" name="player_name" placeholder="Nombre">
+                <input type="text" name="player_name" placeholder="Nombre" required>
                 <input type="submit" value="Iniciar juego">
             </form>
         <?php endif ?>
