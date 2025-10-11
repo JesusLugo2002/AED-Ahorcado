@@ -29,7 +29,10 @@ final class JsonGameRepository implements GameRepositoryInterface {
     public function save(Game $game, string $playerName = ""): string
     {
         $data = $this->readAll();
-        $id = $game->getId() ?? "$playerName-" . $this->getNextId();
+        if (!$id = $game->getId()) {
+            $id = "$playerName-" . $this->getNextId();
+            $game->setId($id);
+        }
         $data['games'][$id] = $game->toArray();
         $this->writeAll($data);
         return $id;

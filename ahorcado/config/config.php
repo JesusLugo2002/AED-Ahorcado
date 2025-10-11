@@ -6,6 +6,7 @@ return [
     ],
     'storage' => [
         'words_file' => __DIR__ . '/../data/words.json',
-        'games_file' => __DIR__ . '/../data/games.json'
+        'games_file' => __DIR__ . '/../data/games.json',
+        'views_dir' => __DIR__ . '/../src/Presentation/Views'
     ]
 ];

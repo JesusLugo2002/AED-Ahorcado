@@ -18,6 +18,7 @@ final class Game {
         $this->targetWord = $targetWord;
         $this->maxAttempts = $maxAttempts;
         if ($gameState) {
+            $this->id = $gameState['id'];
             $this->leftAttempts = $gameState['left_attempts'];
             $this->usedLetters = $gameState['used_letters'];
         } else {
@@ -27,7 +28,7 @@ final class Game {
     }
 
     public function __tostring(): string {
-        return "Palabra a adivinar: $this->targetWord - Intentos: $this->leftAttempts/$this->maxAttempts - Enmascarada: " . $this->getMaskedWord() . " - Status: " . $this->getStatus();
+        return "Palabra a adivinar: $this->targetWord - Intentos: $this->leftAttempts/$this->maxAttempts - Enmascarada: " . $this->getMaskedWord();
     }
 
     public function getId(): string|null {
@@ -72,19 +73,6 @@ final class Game {
      */
     public function getUsedLetters(): array {
         return $this->usedLetters;
-    }
-    
-    /**
-     * Devuelve el estado de la partida.
-     *
-     * @return string `"Started"` si la partida ha empezado. `"Lost"` si ha perdido.
-     *  `"Won"` si ha ganado. `"In progress"` si no hay resultados. 
-     */
-    public function getStatus(): string {
-        if ($this->leftAttempts == $this->maxAttempts) return "Started";
-        if ($this->isLost()) return "Lost";
-        if ($this->isWordGuessed()) return "Won";
-        return "In progress";
     }
     
     /**
@@ -155,6 +143,7 @@ final class Game {
      */
     public function toArray(): array {
         return [
+            "id" => $this->id,
             "target_word" => $this->targetWord,
             "max_attempts" => $this->maxAttempts,
             "left_attempts" => $this->leftAttempts,
