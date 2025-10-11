@@ -78,7 +78,42 @@
                 "D",
                 "E",
                 "S",
-                "A"
+                "A",
+                "R",
+                "O",
+                "L"
+            ]
+        },
+        "jesus-5": {
+            "id": "jesus-5",
+            "target_word": "DESARROLLO",
+            "max_attempts": 6,
+            "left_attempts": 0,
+            "used_letters": [
+                "D",
+                "C",
+                "X",
+                "Z",
+                "Q",
+                "R",
+                "Y",
+                "T"
+            ]
+        },
+        "jesus-6": {
+            "id": "jesus-6",
+            "target_word": "VIDEOJUEGOS",
+            "max_attempts": 6,
+            "left_attempts": 0,
+            "used_letters": [
+                "Q",
+                "W",
+                "E",
+                "R",
+                "T",
+                "Y",
+                "U",
+                "Z"
             ]
         }
     }

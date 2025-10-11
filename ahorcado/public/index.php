@@ -68,7 +68,7 @@ if ($inGame && $isGameIdSaved) {
     <main class="container d-flex justify-content-center align-items-middle flex-column">
         <?php include "$viewsDirectory/title.html"?>
         <?php if ($inGame): ?>
-            <?php echo Renderer::getState() ?>
+            <?php echo Renderer::getState($leftAttempts) ?>
             <div class="row border-bottom pb-3 mb-3">
                 <div class="col text-center">
                     <h2 class="display-5 my-3">Adivina la palabra</h2>
