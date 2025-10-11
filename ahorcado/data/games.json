@@ -251,6 +251,44 @@
                 "A",
                 "E"
             ]
+        },
+        "jesus-17": {
+            "id": "jesus-17",
+            "target_word": "CREATIVIDAD",
+            "max_attempts": 6,
+            "left_attempts": 2,
+            "used_letters": [
+                "A",
+                "C",
+                "Z",
+                "X",
+                "Q",
+                "E",
+                "R",
+                "Y",
+                "T",
+                "I",
+                "V",
+                "D"
+            ]
+        },
+        "a-18": {
+            "id": "a-18",
+            "target_word": "VIDEOJUEGOS",
+            "max_attempts": 6,
+            "left_attempts": 0,
+            "used_letters": [
+                "Q",
+                "W",
+                "E",
+                "T",
+                "Y",
+                "U",
+                "I",
+                "O",
+                "A",
+                "Z"
+            ]
         }
     }
 }
