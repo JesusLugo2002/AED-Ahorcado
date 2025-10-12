@@ -1,128 +1,63 @@
-# 🎮 Juego del Ahorcado en PHP
+<div align=justify>
+
+# El Ahorcado
+
+<div align=center>
+  <img src="./img/v2-final.png">
+</div>
+
+<hr
 
 Este es un proyecto simple en **PHP** que implementa el clásico juego del **ahorcado** en el navegador usando sesiones.
 
----
+# Tabla de contenidos
 
-## 🚀 Requisitos
+- [Requisitos](#requisitos)
+- [Puesta en marcha](#puesta-en-marcha)
+- [Estructura de archivos](#estructura-de-archivos)
+- [Mockup](#mockup)
+- [Imagenes de versiones pasadas](#imagenes-de-versiones-pasadas)
+  - [Versión 1](#versión-1)
+
+
+## Requisitos
 
 - Tener docker y contenedor de docker de **PHP >= 7.4**.
 - Un navegador web.
-- Opcional: archivo `style.css` para mejorar el estilo.
+- Paquete `just` para lanzar comandos con facilidad (opcional).
 
----
+## Puesta en marcha
 
-## 📂 Estructura de archivos
+1. Si tiene instalado el paquete `just` en su sistema, basta con lanzar `just` o `just start` en la raiz del proyecto para levantarlo.
+2. Si no, levante el proyecto con `docker compose up -d --build`.
+3. Una vez levantado, acceda al proyecto a través de [localhost:8080](http://localhost:8080/).
+4. Para cerrar el proyecto, ejecute `just stop` (si tiene instalado `just`) o `docker compose down`.
 
-```
-ahorcado/
-│── index.php
-│── reset.php
-│── style.css   (opcional)
-```
-
----
-
-## 🎨 Dibujo del ahorcado
-
-El juego muestra el progreso del ahorcado en **ASCII** según los intentos restantes:
+## Estructura de archivos
 
 ```
-  +---+
-  |   |
-      |
-      |
-      |
-      |
-=========
+src
+└── public
+    ├── files
+    │   └── words.txt
+    ├── img
+    │   └── icon.svg
+    ├── index.php
+    └── reset.php
 ```
 
-```
-  +---+
-  |   |
-  O   |
-      |
-      |
-      |
-=========
-```
+## Mockup
 
-```
-  +---+
-  |   |
-  O   |
-  |   |
-      |
-      |
-=========
-```
+<div align=center>
+  <img src="./img/mockup.drawio.svg">
+</div>
 
-```
-  +---+
-  |   |
-  O   |
- /|   |
-      |
-      |
-=========
-```
+## Imagenes de versiones pasadas
 
-```
-  +---+
-  |   |
-  O   |
- /|\  |
-      |
-      |
-=========
-```
+### Versión 1
 
-```
-  +---+
-  |   |
-  O   |
- /|\  |
- /    |
-      |
-=========
-```
+<div align=center>
+  <img src="./img/v1-final.png"/>
+</div>
 
-```
-  +---+
-  |   |
-  O   |
- /|\  |
- / \  |
-      |
-=========
-```
-
----
-
-## ▶️ Cómo ejecutar el proyecto
-
-1. Copia los archivos en la carpeta de tu servidor web local.  
-   Ejemplo en **XAMPP (Windows):**
-
-   ```bash
-   C:\xampp\htdocs\ahorcado\
-   ```
-
-   Ejemplo en **Linux (con Apache):**
-
-   ```bash
-   /var/www/html/ahorcado/
-   ```
-
-2. Inicia Apache desde tu servidor local.  
-3. Abre en el navegador:
-
-   ```bash
-   http://localhost/ahorcado/index.php
-   ```
-
----
-
-## 📜 Licencia
-
-Este proyecto es de uso libre para fines educativos.
+</div>

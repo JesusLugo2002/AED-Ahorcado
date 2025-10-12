@@ -1,5 +1,14 @@
 {
     "games": {
-        
+        "rash-0": {
+            "id": "rash-0",
+            "target_word": "DESARROLLO",
+            "max_attempts": 6,
+            "left_attempts": 5,
+            "used_letters": [
+                "A",
+                "X"
+            ]
+        }
     }
 }
