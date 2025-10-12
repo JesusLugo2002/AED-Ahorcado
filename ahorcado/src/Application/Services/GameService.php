@@ -7,6 +7,11 @@ use App\Infrastructure\Persistence\JsonWordRepository as WordProvider;
 use App\Infrastructure\Persistence\SessionRepository as SessionRepository;
 use App\Domain\Entity\Game as Game;
 
+/**
+ * Clase GameService
+ * @author JesusLugo2002
+ * Se encarga de gestionar el flujo del juego y configurar la partida.
+ */
 final class GameService {
     private array $gameConfig;
     private SessionRepository $sessionRepository;
@@ -27,7 +32,12 @@ final class GameService {
             $this->reset();
         }
     }
-
+    
+    /**
+     * Devuelve el juego configurado para continuar la partida.
+     *
+     * @return Game Juego configurado.
+     */
     public function handle(): ?Game {
         $sessionInGame = $this->sessionRepository->get("in_game");
         $sessionGameId = $this->sessionRepository->get("game_id");
@@ -39,7 +49,12 @@ final class GameService {
         }
         return $this->game;
     }
-
+    
+    /**
+     * Crea un juego nuevo con una palabra aleatoria y guarda sus datos en sesion.
+     *
+     * @return void
+     */
     private function createNewGame(): void {
         $this->sessionRepository->set("in_game", true);
         $randomWord = $this->wordProvider->getRandomWord();
@@ -48,7 +63,12 @@ final class GameService {
         $this->sessionRepository->set("game_id", $gameId);
         header("Location: index.php");
     }
-
+    
+    /**
+     * Reinicia el juego.
+     *
+     * @return void
+     */
     private function reset(): void {
         $this->sessionRepository->destroy();
         header("Location: index.php");

@@ -30,11 +30,22 @@ final class Game {
     public function __tostring(): string {
         return "Palabra a adivinar: $this->targetWord - Intentos: $this->leftAttempts/$this->maxAttempts - Enmascarada: " . $this->getMaskedWord();
     }
-
+    
+    /**
+     * Devuelve la id o `null` en su defecto.
+     *
+     * @return string Id del objeto o `null`.
+     */
     public function getId(): string|null {
         return $this->id ?? null;
     }
-
+    
+    /**
+     * Configura la id del objeto Game.
+     *
+     * @param  string $newId Nueva id.
+     * @return void
+     */
     public function setId(string $newId): void {
         $this->id = $newId;
     }
