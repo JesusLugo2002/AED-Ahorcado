@@ -36,14 +36,53 @@ Este es un proyecto simple en **PHP** que implementa el clásico juego del **aho
 ## Estructura de archivos
 
 ```
-src
-└── public
-    ├── files
-    │   └── words.txt
-    ├── img
-    │   └── icon.svg
-    ├── index.php
-    └── reset.php
+ahorcado/
+├── config
+│   └── config.php
+├── data
+│   ├── games.json
+│   └── words.json
+├── public
+│   ├── icon.svg
+│   ├── img
+│   │   ├── banner0.gif
+│   │   ├── banner1.gif
+│   │   ├── banner2.gif
+│   │   ├── banner3.gif
+│   │   ├── banner4.gif
+│   │   ├── banner5.gif
+│   │   └── banner6.gif
+│   └── index.php
+└── src
+    ├── Application
+    │   └── Services
+    │       └── GameService.php
+    ├── Domain
+    │   ├── Entity
+    │   │   └── Game.php
+    │   └── Repository
+    │       ├── GameRepositoryInterface.php
+    │       ├── SessionRepositoryInterface.php
+    │       └── WordRepositoryInterface.php
+    ├── Infrastructure
+    │   ├── Autoload
+    │   │   └── Autoloader.php
+    │   └── Persistence
+    │       ├── JsonGameRepository.php
+    │       ├── JsonWordRepository.php
+    │       └── SessionRepository.php
+    └── Presentation
+        ├── Controllers
+        │   ├── GameController.php
+        │   └── Renderer.php
+        └── Views
+            ├── InGame
+            │   ├── gameMenu.html
+            │   ├── leftSection.php
+            │   ├── rightSection.php
+            │   └── stats.php
+            ├── newGameForm.html
+            └── title.html
 ```
 
 ## Mockup

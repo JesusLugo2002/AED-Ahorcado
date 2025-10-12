@@ -9,6 +9,20 @@
                 "A",
                 "X"
             ]
+        },
+        "rashi-1": {
+            "id": "rashi-1",
+            "target_word": "PYTHON",
+            "max_attempts": 6,
+            "left_attempts": 0,
+            "used_letters": [
+                "A",
+                "C",
+                "Z",
+                "D",
+                "Q",
+                "W"
+            ]
         }
     }
 }
