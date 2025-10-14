@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace App\Infrastructure\Persistence;
+namespace App\Infrastructure\Repository;
 
 use App\Domain\Entity\Game as Game;
-use App\Domain\Repository\GameRepositoryInterface as GameRepositoryInterface;
+use App\Infrastructure\Repository\Interfaces\GameRepositoryInterface as GameRepositoryInterface;
 
 /**
  * Clase JsonGameRepository

@@ -6,20 +6,18 @@ $config = require __DIR__ . '/../config/config.php';
 $viewsDirectory = $config['storage']['views_dir'];
 
 use App\Application\Services\GameService as GameService;
-use App\Presentation\Controllers\GameController as GameController;
-use App\Presentation\Controllers\Renderer as Renderer;
 
 $gameService = new GameService($config);
-$gameState = $gameService->handle();
-if ($gameState) {
-    $gameController = new GameController($gameState, $config);
-    $alert = $gameController->handleGuessLetter();
-    $maskedWord = Renderer::displayMaskedWord($gameState->getMaskedWord());
-    $usedLetters = Renderer::displayUsedLetters($gameState->getUsedLetters());
-    $leftAttempts = $gameState->getLeftAttempts();
-    $maxAttempts = $gameState->getMaxAttempts();
-    $result = $gameController->getResult();
+if ($inGame = $gameService->isInGame()) {
+    $alert = $gameService->handleGuessLetter();
+    $attempts = $gameService->getAttempts();
+    $leftAttempts = $attempts['left_attempts'];
+    $maxAttempts = $attempts['max_attempts'];
+    $usedLetters = $gameService->displayUsedLetters();
+    $maskedWord = $gameService->displayMaskedWord();
+    $result = $gameService->displayResult();
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -35,8 +33,8 @@ if ($gameState) {
 <body>
     <main class="container d-flex justify-content-center align-items-middle flex-column">
         <?php include "$viewsDirectory/title.html"?>
-        <?php if ($gameState): ?>
-            <?php echo Renderer::getState($leftAttempts) ?>
+        <?php if ($inGame): ?>
+            <?php echo $gameService->getStateDraw($leftAttempts) ?>
             <div class="row border-bottom pb-3 mb-3">
                 <?php include "$viewsDirectory/inGame/leftSection.php" ?>
                 <?php include "$viewsDirectory/inGame/rightSection.php" ?>
@@ -45,7 +43,7 @@ if ($gameState) {
                 <?php include "$viewsDirectory/inGame/stats.php" ?>
             </div>
         <?php else: ?>
-            <?php echo Renderer::getState() ?>
+            <?php echo $gameService->getStateDraw() ?>
             <?php include "$viewsDirectory/newGameForm.html" ?>
         <?php endif ?>
     </main>

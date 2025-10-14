@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Domain\Repository;
+namespace App\Infrastructure\Repository\Interfaces;
 
 interface SessionRepositoryInterface {
     public function set(string $name, mixed $value): void;

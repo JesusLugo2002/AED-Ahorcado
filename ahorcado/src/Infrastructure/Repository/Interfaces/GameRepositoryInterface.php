@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Domain\Repository;
+namespace App\Infrastructure\Repository\Interfaces;
 
 use App\Domain\Entity\Game as Game;
 

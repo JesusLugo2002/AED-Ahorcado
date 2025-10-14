@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace App\Infrastructure\Persistence;
+namespace App\Infrastructure\Repository;
 
-use App\Domain\Repository\SessionRepositoryInterface as SessionRepositoryInterface;
+use App\Infrastructure\Repository\Interfaces\SessionRepositoryInterface as SessionRepositoryInterface;
 
 /**
  * Clase SessionRepository

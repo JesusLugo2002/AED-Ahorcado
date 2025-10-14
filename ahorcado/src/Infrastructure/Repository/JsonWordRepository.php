@@ -1,8 +1,8 @@
 <?php declare(strict_types=1); 
 
-namespace App\Infrastructure\Persistence;
+namespace App\Infrastructure\Repository;
 
-use App\Domain\Repository\WordRepositoryInterface as WordRepositoryInterface;
+use App\Infrastructure\Repository\Interfaces\WordRepositoryInterface as WordRepositoryInterface;
 
 /**
  * Clase JsonWordRepository
