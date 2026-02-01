@@ -3,7 +3,7 @@
 # El Ahorcado
 
 <div align=center>
-  <img src="./img/v1-final.png">
+  <img src="./img/v2-final.png">
 </div>
 
 <hr
@@ -12,12 +12,14 @@ Este es un proyecto simple en **PHP** que implementa el clásico juego del **aho
 
 # Tabla de contenidos
 
-- [Requisitos](#requisitos)
-- [Puesta en marcha](#puesta-en-marcha)
-- [Estructura de archivos](#estructura-de-archivos)
-- [Mockup](#mockup)
-- [Clases](#clases)
-- [Flujo de uso](#flujo-de-uso)
+- [El Ahorcado](#el-ahorcado)
+- [Tabla de contenidos](#tabla-de-contenidos)
+  - [Requisitos](#requisitos)
+  - [Puesta en marcha](#puesta-en-marcha)
+  - [Estructura de archivos](#estructura-de-archivos)
+  - [Mockup](#mockup)
+  - [Imagenes de versiones pasadas](#imagenes-de-versiones-pasadas)
+    - [Versión 1](#versión-1)
 
 
 ## Requisitos
@@ -36,14 +38,53 @@ Este es un proyecto simple en **PHP** que implementa el clásico juego del **aho
 ## Estructura de archivos
 
 ```
-src
-└── public
-    ├── files
-    │   └── words.txt
-    ├── img
-    │   └── icon.svg
-    ├── index.php
-    └── reset.php
+ahorcado/
+├── config
+│   └── config.php
+├── data
+│   ├── games.json
+│   └── words.json
+├── public
+│   ├── icon.svg
+│   ├── img
+│   │   ├── banner0.gif
+│   │   ├── banner1.gif
+│   │   ├── banner2.gif
+│   │   ├── banner3.gif
+│   │   ├── banner4.gif
+│   │   ├── banner5.gif
+│   │   └── banner6.gif
+│   └── index.php
+└── src
+    ├── Application
+    │   └── Services
+    │       └── GameService.php
+    ├── Domain
+    │   ├── Entity
+    │   │   └── Game.php
+    │   └── Repository
+    │       ├── GameRepositoryInterface.php
+    │       ├── SessionRepositoryInterface.php
+    │       └── WordRepositoryInterface.php
+    ├── Infrastructure
+    │   ├── Autoload
+    │   │   └── Autoloader.php
+    │   └── Persistence
+    │       ├── JsonGameRepository.php
+    │       ├── JsonWordRepository.php
+    │       └── SessionRepository.php
+    └── Presentation
+        ├── Controllers
+        │   ├── GameController.php
+        │   └── Renderer.php
+        └── Views
+            ├── InGame
+            │   ├── gameMenu.html
+            │   ├── leftSection.php
+            │   ├── rightSection.php
+            │   └── stats.php
+            ├── newGameForm.html
+            └── title.html
 ```
 
 ## Mockup
@@ -52,28 +93,12 @@ src
   <img src="./img/mockup.drawio.svg">
 </div>
 
-## Clases
+## Imagenes de versiones pasadas
 
-```
-WordProvider  ──►  Game  ◄── Storage
-       │               │
-       └──────────────►│
-                       │
-                   Renderer
-```
+### Versión 1
 
-- **WordProvider**: obtiene palabras desde ficheros u otras fuentes.
-- **Game**: encapsula la lógica del juego (estado, intentos, victoria/derrota).
-- **Storage**: maneja la persistencia del estado (sesiones).
-- **Renderer**: dibuja el ahorcado en ASCII según intentos restantes.
-
-## Flujo de uso
-
-1. `Storage` carga estado de sesión.
-2. `WordProvider` da la palabra inicial si no existe.
-3. `Game` gestiona lógica de letras e intentos.
-4. `Storage` guarda de nuevo el estado (`toState()`).
-5. `Renderer` convierte intentos restantes en el dibujo ASCII.
-6. `index.php` genera HTML con datos de `Game` + `Renderer`.
+<div align=center>
+  <img src="./img/v1-final.png"/>
+</div>
 
 </div>

@@ -1,0 +1,101 @@
+{
+    "games": {
+        "rash-0": {
+            "id": "rash-0",
+            "target_word": "DESARROLLO",
+            "max_attempts": 6,
+            "left_attempts": 5,
+            "used_letters": [
+                "A",
+                "X"
+            ]
+        },
+        "rashi-1": {
+            "id": "rashi-1",
+            "target_word": "PYTHON",
+            "max_attempts": 6,
+            "left_attempts": 0,
+            "used_letters": [
+                "A",
+                "C",
+                "Z",
+                "D",
+                "Q",
+                "W"
+            ]
+        },
+        "JESUS-2": {
+            "id": "JESUS-2",
+            "target_word": "TYPESCRIPT",
+            "max_attempts": 6,
+            "left_attempts": 0,
+            "used_letters": [
+                "A",
+                "C",
+                "Z",
+                "X",
+                "V",
+                "B",
+                "N"
+            ]
+        },
+        "jesus-3": {
+            "id": "jesus-3",
+            "target_word": "TYPESCRIPT",
+            "max_attempts": 6,
+            "left_attempts": 1,
+            "used_letters": [
+                "A",
+                "C",
+                "V",
+                "Z",
+                "X",
+                "Q"
+            ]
+        },
+        "f-4": {
+            "id": "f-4",
+            "target_word": "PATRONES",
+            "max_attempts": 6,
+            "left_attempts": 0,
+            "used_letters": [
+                "A",
+                "Z",
+                "B",
+                "N",
+                "M",
+                "J",
+                "H",
+                "G"
+            ]
+        },
+        "a-5": {
+            "id": "a-5",
+            "target_word": "PYTHON",
+            "max_attempts": 6,
+            "left_attempts": 0,
+            "used_letters": [
+                "C",
+                "Z",
+                "B",
+                "V",
+                "M",
+                "J"
+            ]
+        },
+        "a-6": {
+            "id": "a-6",
+            "target_word": "CREATIVIDAD",
+            "max_attempts": 6,
+            "left_attempts": 6,
+            "used_letters": []
+        },
+        "jesus-7": {
+            "id": "jesus-7",
+            "target_word": "VIDEOJUEGOS",
+            "max_attempts": 6,
+            "left_attempts": 6,
+            "used_letters": []
+        }
+    }
+}
